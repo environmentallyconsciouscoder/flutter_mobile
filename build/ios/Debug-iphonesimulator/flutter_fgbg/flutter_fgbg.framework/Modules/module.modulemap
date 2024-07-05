@@ -1,0 +1,11 @@
+framework module flutter_fgbg {
+  umbrella header "flutter_fgbg-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module flutter_fgbg.Swift {
+  header "flutter_fgbg-Swift.h"
+  requires objc
+}

@@ -1,0 +1,51 @@
+#!/bin/sh
+
+BASEDIR=`dirname $0`/..
+ENVDIR=$BASEDIR/environments
+DOTENV=$BASEDIR/environments/.env
+
+trap exit INT TERM
+
+runcmd() {
+    echo "Running $@"
+    $@
+}
+
+fresh=0
+if [ "$1" = "-f" ]; then
+    fresh=1
+    shift
+fi
+
+if [ "$1" = "" -o "$2" = "" ]; then
+    echo "Usage:" >&2
+    echo "	$0 [-f] envname platform" >&2
+    echo "Options:" >&2
+    echo "	-f: Fresh build from clean" >&2
+    exit 1
+fi
+
+envfile=$ENVDIR/.env.$1.$2
+if [ ! -f $envfile ]; then
+    envfile=$ENVDIR/.env.$1
+    if [ ! -f $envfile ]; then
+        echo "Neither .env.$1.$2 nor .env.$1 found in $ENVDIR" >&2
+        exit 2
+    fi
+fi
+
+rm -f $DOTENV
+echo "Copying environment from $envfile"
+cp $envfile $DOTENV
+
+if [ $fresh -eq 1 ]; then
+    runcmd flutter clean
+    runcmd flutter pub get
+    runcmd flutter pub run build_runner build --delete-conflicting-outputs
+fi
+
+buildplatform=$2
+if [ "$2" = "android" ]; then
+    buildplatform=appbundle
+fi
+runcmd flutter build $buildplatform

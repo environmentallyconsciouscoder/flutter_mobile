@@ -1,0 +1,21 @@
+icons_launcher:
+  #  https://github.com/mrrhak/icons_launcher/blob/master/example/simple_app/icons_launcher.yaml
+  #  image_path: "assets/images/icon-128x128.png"
+  remove_alpha_ios: true
+  remove_alpha_macos: true
+  platforms:
+    android:
+      enable: true
+      image_path: 'assets/icons/android/app-icon_green-grey_1024x1024.png'
+    ios:
+      enable: true
+      image_path: 'assets/icons/ios/app-icon_green-grey_1024x1024.png'
+    macos:
+      enable: true
+      image_path: 'assets/icons/macos/app-icon_green-grey_1024x1024.png'
+    windows:
+      enable: false
+    web:
+      enable: false
+    linux:
+      enable: false

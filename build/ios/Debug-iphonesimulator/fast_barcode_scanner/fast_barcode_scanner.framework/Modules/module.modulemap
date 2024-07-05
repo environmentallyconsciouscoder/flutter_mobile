@@ -1,0 +1,11 @@
+framework module fast_barcode_scanner {
+  umbrella header "fast_barcode_scanner-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module fast_barcode_scanner.Swift {
+  header "fast_barcode_scanner-Swift.h"
+  requires objc
+}
